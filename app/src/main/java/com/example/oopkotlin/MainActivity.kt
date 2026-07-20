@@ -14,8 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.oopkotlin.ui.theme.OOPKotlinTheme
 
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inputs which could be entered for people ect
+        val names: Array<String?> = arrayOf("Craig", "Kaellum", "","Oliver")
+        val ages: Array<Int?> = arrayOf(21, 18, null, 69)
+        val addresses: Array<String?> = arrayOf("1 Main St", "2 Side Ave", "3 Bend Rd", "4 Circle Cl")
+
+
         enableEdgeToEdge()
         setContent {
             OOPKotlinTheme {
