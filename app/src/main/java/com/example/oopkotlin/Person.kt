@@ -1,34 +1,36 @@
 package com.example.oopkotlin
 
-open class Person(Name: String, Age: Int, Address: String) { // Bit confused as looks like from research -
+open class Person(Name: String?, Age: Int?, Address: String?) { // Bit confused as looks like from research -
                                                              // - that adding varibles is not necessary
     private var name = Name
     private var  age = Age
     private var address = Address
 
 
-    fun SetName(name: String){ // I assume this is fine but editor wants lowercase
+    fun setName(name: String?){ // I assume this is fine but editor wants lowercase
         this.name = name
     }
-    fun GetName(): String {
+    fun getName(): String? {
         return this.name
     }
 
-    fun SetAge(age: Int){
+    fun setAge(age: Int?){
         this.age = age
     }
-    fun GetAge(): Int {
+    fun getAge(): Int? {
         return this.age
     }
 
-    fun SetAddress(address: String){
+    fun setAddress(address: String?){
         this.address = address
     }
-    fun GetAddress(): String {
+    fun getAddress(): String? {
         return this.address
     }
 
-    open fun getDisplayName(): String {
-        TODO("Return Person: followed by the name")
+    open fun getDisplayName(): String? {
+        var  personAdd = getName()
+
+        return ("Person: " + personAdd)
     }
 }
