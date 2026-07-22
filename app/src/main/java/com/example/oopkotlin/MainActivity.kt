@@ -26,20 +26,25 @@ class MainActivity : ComponentActivity() {
         val names: Array<String?> = arrayOf("Craig","Kaellum", null ,"Oliver", "Callum")
         val ages: Array<Int?> = arrayOf(21, 250, 36, 67, 18)
         val addresses: Array<String?> = arrayOf("1 Main St", "2 Side Ave", "3 Bend Rd", "4 Circle Cl","")
+        val id: Array<Int?> = arrayOf(1,2,3,4,5)
+        val department: Array<String?> = arrayOf("IT","Logistics","Cleaning","Catering","Sales")
 
-        val persons: MutableList<Person> = mutableListOf() // wanted to use var because I am changing it in code  but editor said val?
-        createPeople(persons,names , ages, addresses)
+        //val persons: MutableList<Person> = mutableListOf() // wanted to use var because I am changing it in code  but editor said val?
+        //createPeople(persons,names , ages, addresses)
 
-        val ogName = persons[0].getName()
+        val employees: MutableList<Employee> = mutableListOf() // wanted to use var because I am changing it in code  but editor said val?
+        createEmployee(employees,names , ages, addresses, id, department)
+
+        val ogName = employees[0].getName()
 
         val testPersonName: String? = "Tim"
-        persons[0].setName(testPersonName)
+        employees[0].setName(testPersonName)
 
         //val person1DisplayName = persons[0].getDisplayName()
         //println(person1DisplayName)
         //OutPutTask1Seccond(person1DisplayName)
 
-        val newName = persons[0].getDisplayName()
+        val newName = employees[0].getDisplayName()
 
         enableEdgeToEdge()
         setContent {
@@ -57,15 +62,15 @@ class MainActivity : ComponentActivity() {
 
                 Column {
                     //Greeting(name = "Android")
-                    OutPutTask1First(persons)
-                    OutPutTask1Second(ogName, newName)
+                    OutPutFirst(employees)
+                    OutPutSecond(ogName, newName)
                 }
             }
         }
     }
 
 
-    fun createPeople(persons: MutableList<Person>, names: Array<String?>, ages: Array<Int?>, addresses: Array<String?>) {
+    fun createPeople(persons: MutableList<Person>, names: Array<String?>, ages: Array<Int?>, addresses: Array<String?>) { // Task 1
 
         //persons = mutableListOf()
         for (i in 0 until names.size) {
@@ -82,7 +87,9 @@ class MainActivity : ComponentActivity() {
                 names[i] == "" -> continue
                 ages[i] !in 0..120-> continue
                 addresses[i] == "" -> continue
-                else -> persons.add(Person(names[i]!!, ages[i]!!, addresses[i]!!))
+                else -> persons.add(Person(names[i]!!, ages[i]!!, addresses[i]!!)) // The !! forces the code to use the Array as because -
+                                                                                   //- I used String? ect the code thinks that the person could be null so error
+                                                                                   // However its pointless because I just changed the class to take in a ? varible in the Employee
             }
 
         }
@@ -91,6 +98,26 @@ class MainActivity : ComponentActivity() {
 
 
 }
+
+
+fun createEmployee(employees: MutableList<Employee>, names: Array<String?>, ages: Array<Int?>, addresses: Array<String?>, id: Array<Int?>, department: Array<String?>) {
+
+    for (i in 0 until names.size) {
+
+        when {
+            names[i] == null || ages[i] == null || addresses[i] == null -> continue
+            names[i] == "" -> continue
+            ages[i] !in 0..120-> continue
+            addresses[i] == "" -> continue
+            else -> employees.add(Employee(names[i], ages[i], addresses[i], id[i], department[i]))
+        }
+
+    }
+
+}
+
+
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -101,11 +128,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun OutPutTask1First(persons: MutableList<Person>){
+fun OutPutFirst(employees: MutableList<Employee>){
     Column {
-        for (i in 0 until persons.size) {
+        for (i in 0 until employees.size) {
             Text(
-                text = "\n Name: " + persons[i].getName() + "\n Age: " + persons[i].getAge() + "\n Address: " + persons[i].getAddress()
+                text = "\n Name: " + employees[i].getName() +
+                        "\n Age: " + employees[i].getAge() +
+                        "\n Address: " + employees[i].getAddress() +
+                        "\n ID: " + employees[i].getID() +
+                        "\n Department: " + employees[i].getDepartment()
+
                 //text = "Name:  $persons[i].getName() Age: $persons[i].getAge() Address: $persons[i].getAddress()"
                 //modifier = modifier
 
@@ -116,7 +148,7 @@ fun OutPutTask1First(persons: MutableList<Person>){
 }
 
 @Composable
-fun OutPutTask1Second(ogName:  String?, newName:  String? ){
+fun OutPutSecond(ogName:  String?, newName:  String? ){
     Text(
         //text = "The Orignal name for " + newName +" was " + ogName
         text = "\n The Orignal name for  $newName  was $ogName"

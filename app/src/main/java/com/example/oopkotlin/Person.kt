@@ -29,8 +29,8 @@ open class Person(Name: String?, Age: Int?, Address: String?) { // Bit confused 
     }
 
     open fun getDisplayName(): String? {
-        var  personAdd = getName()
+        var  personName = getName()
 
-        return ("Person: " + personAdd)
+        return ("Person: " + personName)
     }
 }
